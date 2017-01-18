@@ -97,9 +97,9 @@ defmodule Appsignal.Config do
   end
 
   defp load_from_system() do
-    case System.get_env("DYNO") do
-      nil -> %{}
-      _ -> %{running_in_container: true, log: "stdout"}
+    case Appsignal.System.heroku? do
+      false -> %{}
+      true -> %{running_in_container: true, log: "stdout"}
     end
   end
 
