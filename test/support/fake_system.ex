@@ -1,3 +1,23 @@
 defmodule Appsignal.FakeSystem do
   @behaviour Appsignal.SystemBehaviour
+
+  def start_link do
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
+  end
+
+  def set(key, value) do
+    Agent.update(__MODULE__, &Map.put(&1, key, value))
+  end
+
+  def root? do
+    Agent.get(__MODULE__, &Map.get(&1, :root, false))
+  end
+
+  def heroku? do
+    Agent.get(__MODULE__, &Map.get(&1, :heroku, false))
+  end
+
+  def uid do
+    Agent.get(__MODULE__, &Map.get(&1, :uid, 999))
+  end
 end

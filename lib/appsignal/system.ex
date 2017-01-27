@@ -1,4 +1,7 @@
 defmodule Appsignal.SystemBehaviour do
+  @callback root?() :: boolean()
+  @callback heroku?() :: boolean()
+  @callback uid() :: integer | nil
 end
 
 defmodule Appsignal.System do
